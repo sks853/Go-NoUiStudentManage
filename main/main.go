@@ -7,7 +7,7 @@
  * @Version      0.0.1
  * @Time         2022-02-11 15:42
  * @FileName     main.go
- * @Description  None
+ * @Description  Start main function
  * ==================================================
 **/
 
@@ -15,19 +15,37 @@ package main
 
 import (
 	"NoUiStudentManage/public"
-	"NoUiStudentManage/strings"
 )
 
 func main() {
 	public.FuncChangeModeDebug(true)
-	public.FuncPrintLog(strings.LogInfo, "Start running...", nil)
-	var content = []string{"这是第一条很长很长的文字", "这是第二条很长很长的文字", "这是第三条", "This is the forth"}
-	var menu = StructMenu{
-		title:    "欢迎使用教学管理系统",
-		name:     "张翼德",
-		userId:   "2022070230421",
-		option:   content,
-		selector: 2,
+	public.FuncPrintLog(public.LogInfo, "Start running...")
+	menu := InitTreeMenu()
+	nodeList := &public.StructMenuLink{Node: menu}
+	FuncPrintMenu(*menu)
+	for {
+		option := public.SelectOption(len(menu.MenuNode))
+		if option < 0 {
+			continue
+		}
+		if option == 0 {
+			if nodeList.NodeLast != nil {
+				nodeList = nodeList.NodeLast
+				menu = nodeList.Node
+			} else {
+				public.Clear()
+				public.TipWait("正在退出")
+				public.Clear()
+				return
+			}
+		} else {
+			if nodeList.NodeNext == nil {
+				node := &public.StructMenuLink{NodeLast: nodeList}
+				nodeList = node
+			}
+			menu = menu.MenuNode[option-1]
+			nodeList.Node = menu
+		}
+		FuncPrintMenu(*menu)
 	}
-	FuncPrintMenu(menu)
 }
