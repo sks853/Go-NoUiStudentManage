@@ -14,21 +14,30 @@
 package public
 
 type StructProfile struct {
-	Name   string
-	UserId string
+	IsLogin   bool
+	Name      string
+	UserId    string
+	ClassId   string
+	SubjectID string
 }
 
 type StructMenu struct {
-	Title    string
-	Profile  StructProfile
-	Permit   []int
-	Text     string
-	MenuNode []*StructMenu
-	Func     any
+	Title       string
+	Profile     *StructProfile
+	PermitMode  int
+	PermitList  []int
+	Text        string
+	HasVerifier bool
+	MenuNode    []*StructMenu
+	Func        func(*StructShareBase, ...any)
 }
 
 type StructMenuLink struct {
 	NodeLast *StructMenuLink
 	NodeNext *StructMenuLink
 	Node     *StructMenu
+}
+
+type StructShareBase struct {
+	Profile *StructProfile
 }

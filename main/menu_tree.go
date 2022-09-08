@@ -20,190 +20,217 @@ import (
 // ---------- ---------- ---------- ---------- ---------- 02
 
 var nodeProfileSelfCheck = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ProfileSelfCheck,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02ProfileSelfCheck,
+	Func:       funcProfileSelfCheck,
 }
 
 var nodeProfileSelfModify = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ProfileSelfModify,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02ProfileSelfModify,
+	Func:       funcProfileSelfModify,
 }
 
 var nodeProfileOtherCheck = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ProfileOtherCheck,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ProfileOtherCheck,
+	Func:       funcProfileOtherCheck,
 }
 
 var nodeProfileOtherEdit = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ProfileOtherEdit,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ProfileOtherEdit,
+	Func:       funcProfileOtherEdit,
 }
 
 var nodeSubjectAdd = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02SubjectAdd,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02SubjectAdd,
+	Func:       funcSubjectAdd,
 }
 
 var nodeSubjectDel = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02SubjectDel,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02SubjectDel,
+	Func:       funcSubjectDel,
 }
 
 var nodeSubjectCheck = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02SubjectCheck,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02SubjectCheck,
+	Func:       funcSubjectCheck,
 }
 
 var nodeSubjectEdit = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02SubjectEdit,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02SubjectEdit,
+	Func:       funcSubjectEdit,
 }
 
 var nodeClassAdd = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassAdd,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ClassAdd,
+	Func:       funcClassAdd,
 }
 
 var nodeClassDel = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassDel,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ClassDel,
+	Func:       funcClassDel,
 }
 
 var nodeClassCheck = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassCheck,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02ClassCheck,
+	Func:       funcClassCheck,
 }
 
 var nodeClassEdit = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassEdit,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ClassEdit,
+	Func:       funcClassEdit,
 }
 
 var nodeClassMemberAdd = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassMemberAdd,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ClassMemberAdd,
+	Func:       funcClassMemberAdd,
 }
 
 var nodeClassMemberDel = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ClassMemberDel,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ClassMemberDel,
+	Func:       funcClassMemberDel,
 }
 
 var nodeExamAdd = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ExamAdd,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ExamAdd,
+	Func:       funcExamAdd,
 }
 
 var nodeExamDel = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ExamDel,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ExamDel,
+	Func:       funcExamDel,
 }
 
 var nodeExamCheck = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ExamCheck,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ExamCheck,
+	Func:       funcExamCheck,
 }
 
 var nodeExamEdit = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ExamEdit,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ExamEdit,
+	Func:       funcExamEdit,
 }
 
 var nodeReportAdd = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ReportAdd,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ReportAdd,
+	Func:       funcReportAdd,
 }
 
 var nodeReportEdit = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ReportEdit,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ReportEdit,
+	Func:       funcReportEdit,
 }
 
 var nodeReportCheckDate = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ReportCheckDate,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ReportCheckDate,
+	Func:       funcReportCheckDate,
 }
 
 var nodeReportCheckId = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ReportCheckId,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu02ReportCheckId,
+	Func:       funcReportCheckId,
 }
 
 var nodeMailboxSend = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02MailboxSend,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02MailboxSend,
+	Func:       funcMailboxSend,
 }
 
 var nodeMailboxReceive = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02MailboxReceive,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager, public.PermitUser},
+	Text:       public.Menu02MailboxReceive,
+	Func:       funcMailboxReceive,
 }
 
 var nodeToolboxAddActiveCode = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ToolboxAddActiveCode,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ToolboxAddActiveCode,
+	Func:       funcToolboxAddActiveCode,
 }
 
 var nodeToolboxDelAccount = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu02ToolboxDelAccount,
-	Func:   nil,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu02ToolboxDelAccount,
+	Func:       funcToolboxDelAccount,
 }
 
 // ---------- ---------- ---------- ---------- ---------- 01
 
 var nodeProfile = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu01Profile,
+	PermitMode: public.PermitGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu01Profile,
 	MenuNode: []*public.StructMenu{
 		&nodeProfileSelfCheck,
 		&nodeProfileSelfModify,
 		&nodeProfileOtherCheck,
 		&nodeProfileOtherEdit,
 	},
-	Func: nil,
 }
 
 var nodeSubject = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu01Subject,
+	PermitMode: public.PermitGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu01Subject,
 	MenuNode: []*public.StructMenu{
 		&nodeSubjectAdd,
 		&nodeSubjectDel,
 		&nodeSubjectCheck,
 		&nodeSubjectEdit,
 	},
-	Func: nil,
 }
 
 var nodeClass = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu01Class,
+	PermitMode: public.PermitGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu01Class,
 	MenuNode: []*public.StructMenu{
 		&nodeClassAdd,
 		&nodeClassDel,
@@ -212,58 +239,59 @@ var nodeClass = public.StructMenu{
 		&nodeClassMemberAdd,
 		&nodeClassMemberDel,
 	},
-	Func: nil,
 }
 
 var nodeExam = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu01Exam,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator, public.PermitManager},
+	Text:       public.Menu01Exam,
 	MenuNode: []*public.StructMenu{
 		&nodeExamAdd,
 		&nodeExamDel,
 		&nodeExamCheck,
 		&nodeExamEdit,
 	},
-	Func: nil,
 }
 
 var nodeReport = public.StructMenu{
-	Permit: []int{},
-	Text:   public.Menu01Report,
+	PermitMode: public.PermitGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu01Report,
 	MenuNode: []*public.StructMenu{
 		&nodeReportAdd,
 		&nodeReportEdit,
 		&nodeReportCheckDate,
 		&nodeReportCheckId,
 	},
-	Func: nil,
 }
 
 var nodeMailbox = public.StructMenu{
-	Permit: []int{public.PermitManager, public.PermitUser},
-	Text:   public.Menu01Mailbox,
+	PermitMode: public.PermitGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu01Mailbox,
 	MenuNode: []*public.StructMenu{
 		&nodeMailboxSend,
 		&nodeMailboxReceive,
 	},
-	Func: nil,
 }
 
 var nodeToolbox = public.StructMenu{
-	Permit: []int{public.PermitAdministrator},
-	Text:   public.Menu01Toolbox,
+	PermitMode: public.PermitEqual,
+	PermitList: []int{public.PermitAdministrator},
+	Text:       public.Menu01Toolbox,
 	MenuNode: []*public.StructMenu{
 		&nodeToolboxAddActiveCode,
 		&nodeToolboxDelAccount,
 	},
-	Func: nil,
 }
 
 // ---------- ---------- ---------- ---------- ---------- 00
 
 var nodeLogin = public.StructMenu{
-	Permit: []int{public.PermitGuest},
-	Text:   public.Menu00Login,
+	PermitMode:  public.PermitEqualGreater,
+	PermitList:  []int{public.PermitGuest},
+	Text:        public.Menu00Login,
+	HasVerifier: true,
 	MenuNode: []*public.StructMenu{
 		&nodeProfile,
 		&nodeSubject,
@@ -273,25 +301,26 @@ var nodeLogin = public.StructMenu{
 		&nodeMailbox,
 		&nodeToolbox,
 	},
-	Func: nil,
+	Func: funcLogin,
 }
 
 var nodeRegister = public.StructMenu{
-	Permit: []int{public.PermitGuest},
-	Text:   public.Menu00Register,
-	Func:   nil,
+	PermitMode: public.PermitEqualGreater,
+	PermitList: []int{public.PermitGuest},
+	Text:       public.Menu00Register,
+	Func:       funcRegister,
 }
 
 // ---------- ---------- ---------- ---------- ----------
 
-func InitTreeMenu() *public.StructMenu {
+func InitTreeMenu(share *public.StructShareBase) *public.StructMenu {
 	return &public.StructMenu{
-		Permit: []int{public.PermitGuest},
-		Text:   public.Menu00Login,
+		Profile:    share.Profile,
+		PermitList: []int{public.PermitGuest},
+		Text:       public.Menu00Login,
 		MenuNode: []*public.StructMenu{
 			&nodeLogin,
 			&nodeRegister,
 		},
-		Func: nil,
 	}
 }

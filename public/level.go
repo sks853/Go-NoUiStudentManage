@@ -25,3 +25,11 @@ const (
 	PermitUser          = 3
 	PermitGuest         = 4
 )
+
+const (
+	PermitEqual        = 0
+	PermitEqualLess    = 1
+	PermitEqualGreater = 2
+	PermitLess         = 3
+	PermitGreater      = 4
+)

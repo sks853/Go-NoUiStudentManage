@@ -19,9 +19,9 @@ import (
 	"github.com/gookit/color"
 )
 
-func FuncPrintMenu(menu public.StructMenu) {
+func FuncPrintMenu(menu public.StructMenu, share *public.StructShareBase) {
 	public.Clear()
-	funcPrintProfile(menu.Profile)
+	funcPrintProfile(share.Profile)
 	fmt.Println("----- ----- ----- ----- -----")
 	if menu.Title != "" {
 		color.Red.Printf("%s\n", menu.Title)
@@ -36,17 +36,19 @@ func FuncPrintMenu(menu public.StructMenu) {
 	fmt.Println("----- ----- ----- ----- -----")
 }
 
-func funcPrintProfile(profile public.StructProfile) {
+func funcPrintProfile(profile *public.StructProfile) {
 	color.Blue.Printf("%s\n", "欢迎使用教学管理系统")
-	color.Red.Printf("%s\t", profile.UserId)
-	color.Yellow.Printf("%s\n", profile.Name)
+	if profile.IsLogin {
+		color.Red.Printf("%s\t", profile.UserId)
+		color.Yellow.Printf("%s\n", profile.Name)
+	}
 }
 
 func funcIsPermitShowMenu(userPermission int, menu *public.StructMenu) bool {
-	if 0 == len(menu.Permit) {
+	if 0 == len(menu.PermitList) {
 		return false
 	}
-	for permit := range menu.Permit {
+	for permit := range menu.PermitList {
 		if permit == userPermission {
 			return true
 		}
