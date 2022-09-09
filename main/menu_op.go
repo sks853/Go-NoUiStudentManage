@@ -19,7 +19,7 @@ import (
 	"github.com/gookit/color"
 )
 
-func FuncPrintMenu(menu public.StructMenu, share *public.StructShareBase) {
+func FuncMenuPrint(menu *public.StructMenu, share *public.StructShareBase) {
 	public.Clear()
 	funcPrintProfile(share.Profile)
 	fmt.Println("----- ----- ----- ----- -----")
@@ -28,8 +28,12 @@ func FuncPrintMenu(menu public.StructMenu, share *public.StructShareBase) {
 		fmt.Println("----- ----- ----- ----- -----")
 	}
 	fmt.Printf("%d. %s\n", 0, "返回上一级")
+	funcMenuCheckPermit(share.Profile.Permit, menu)
 	if len(menu.MenuNode) != 0 {
 		for i, node := range menu.MenuNode {
+			if node == nil {
+				continue
+			}
 			fmt.Printf("%d. %s\n", i+1, node.Text)
 		}
 	}
@@ -44,14 +48,64 @@ func funcPrintProfile(profile *public.StructProfile) {
 	}
 }
 
-func funcIsPermitShowMenu(userPermission int, menu *public.StructMenu) bool {
-	if 0 == len(menu.PermitList) {
+func funcMenuCheckPermit(userPermission int, menu *public.StructMenu) {
+	newMenu := &public.StructMenu{}
+	for i := range menu.MenuNode {
+		if menu.MenuNode[i] == nil {
+			continue
+		}
+		ok := funcIsPermitMenu(userPermission, menu.MenuNode[i].PermitMode, menu.MenuNode[i].PermitList)
+		if ok {
+			newMenu.MenuNode = append(newMenu.MenuNode, menu.MenuNode[i])
+		}
+	}
+	menu.MenuNode = newMenu.MenuNode
+	newMenu.MenuNode = nil
+}
+func funcIsPermitMenu(userPermit int, mode int, permitList []int) bool {
+	if 0 == len(permitList) {
 		return false
 	}
-	for permit := range menu.PermitList {
-		if permit == userPermission {
-			return true
+	if userPermit == 0 {
+		return false
+	}
+	switch mode {
+	case public.PermitModeEqual:
+		for _, permit := range permitList {
+			if permit == userPermit {
+				return true
+			}
 		}
+		return false
+	case public.PermitModeEqualLess:
+		for _, permit := range permitList {
+			if userPermit < permit {
+				return false
+			}
+		}
+		return true
+	case public.PermitModeEqualGreater:
+		for _, permit := range permitList {
+			if permit < userPermit {
+				return false
+			}
+		}
+		return true
+	case public.PermitModeLess:
+		for _, permit := range permitList {
+			if userPermit <= permit {
+				return false
+			}
+		}
+		return true
+	case public.PermitModeGreater:
+		for _, permit := range permitList {
+			if permit <= userPermit {
+				return false
+			}
+		}
+		return true
+	default:
 	}
 	return false
 }

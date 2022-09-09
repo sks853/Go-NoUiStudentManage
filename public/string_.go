@@ -18,8 +18,9 @@ import "runtime"
 const SysType = runtime.GOOS
 
 const (
-	Menu00Login    = "登陆账户"
-	Menu00Register = "激活账户"
+	Menu00Login         = "登陆账户"
+	Menu00Register      = "激活账户"
+	Menu00ChangeAccount = "切换账户"
 )
 
 const (

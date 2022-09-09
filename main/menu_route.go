@@ -18,22 +18,34 @@ import (
 	"NoUiStudentManage/public"
 )
 
-func funcLogin(share *public.StructShareBase, option ...any) {
-	public.FuncPrintLog(public.LogInfo, "用户正在尝试登陆")
-	count := 2
+func checkArgs(option []any) bool {
 	if len(option) == 0 {
 		panic("请设置参数位置[0]且为布尔型变量的地址，当前参数数量为0")
-		return
+		return false
 	}
 	switch option[0].(type) {
 	case *bool:
 		break
 	default:
 		panic("请设置参数位置[0]且为布尔型变量的地址，当前参数类型非布尔型指针地址")
+		return false
+	}
+	return true
+}
+
+func funcLogin(share *public.StructShareBase, option ...any) {
+	public.FuncPrintLog(public.LogInfo, "用户正在尝试登陆")
+	count := 2
+	if !checkArgs(option) {
 		return
 	}
 	vfResult := option[0].(*bool)
 	for {
+		if share.Profile.IsLogin {
+			public.TipWait("当前已登陆，即将进入主菜单", 1)
+			*vfResult = true
+			return
+		}
 		userId, err := public.TipInput(public.TipInputUserId)
 		if err != nil {
 			public.FuncPrintLog(public.LogErrs, "登陆时输入用户编号出现异常", err)
@@ -62,37 +74,46 @@ func funcLogin(share *public.StructShareBase, option ...any) {
 			return
 		}
 		public.TipWait("密码不匹配，请重新输入")
-		public.FuncPrintLog(public.LogWarn, "用户尝试登陆但失败")
+		public.FuncPrintLog(public.LogWarn, public.Format("未登录用户尝试登陆{%s}但失败", userId))
 		count--
 	}
 }
-func funcRegister(value *public.StructShareBase, option ...any) {
-	public.FuncPrintLog(public.LogInfo, "用户尝试注册和激活")
+func funcRegister(share *public.StructShareBase, _ ...any) {
+	public.FuncPrintLog(public.LogInfo, "未登录用户尝试注册和激活")
 	public.TipWait("Register")
 }
-func funcProfileSelfCheck(share *public.StructShareBase, option ...any)     {}
-func funcProfileSelfModify(share *public.StructShareBase, option ...any)    {}
-func funcProfileOtherCheck(share *public.StructShareBase, option ...any)    {}
-func funcProfileOtherEdit(share *public.StructShareBase, option ...any)     {}
-func funcSubjectAdd(share *public.StructShareBase, option ...any)           {}
-func funcSubjectDel(share *public.StructShareBase, option ...any)           {}
-func funcSubjectCheck(share *public.StructShareBase, option ...any)         {}
-func funcSubjectEdit(share *public.StructShareBase, option ...any)          {}
-func funcClassAdd(share *public.StructShareBase, option ...any)             {}
-func funcClassDel(share *public.StructShareBase, option ...any)             {}
-func funcClassCheck(share *public.StructShareBase, option ...any)           {}
-func funcClassEdit(share *public.StructShareBase, option ...any)            {}
-func funcClassMemberAdd(share *public.StructShareBase, option ...any)       {}
-func funcClassMemberDel(share *public.StructShareBase, option ...any)       {}
-func funcExamAdd(share *public.StructShareBase, option ...any)              {}
-func funcExamDel(share *public.StructShareBase, option ...any)              {}
-func funcExamCheck(share *public.StructShareBase, option ...any)            {}
-func funcExamEdit(share *public.StructShareBase, option ...any)             {}
-func funcReportAdd(share *public.StructShareBase, option ...any)            {}
-func funcReportEdit(share *public.StructShareBase, option ...any)           {}
-func funcReportCheckDate(share *public.StructShareBase, option ...any)      {}
-func funcReportCheckId(share *public.StructShareBase, option ...any)        {}
-func funcMailboxSend(share *public.StructShareBase, option ...any)          {}
-func funcMailboxReceive(share *public.StructShareBase, option ...any)       {}
-func funcToolboxAddActiveCode(share *public.StructShareBase, option ...any) {}
-func funcToolboxDelAccount(share *public.StructShareBase, option ...any)    {}
+func funcChangeAccount(share *public.StructShareBase, _ ...any) {
+	if share.Profile == nil || !share.Profile.IsLogin {
+		public.TipWait(public.Format(public.TipOpFail, "当前尚未登陆，请先进行登陆"))
+		return
+	}
+	share.Profile.IsLogin = false
+	public.TipWait(public.TipOpSuccess)
+	public.FuncPrintLog(public.LogInfo, public.Format("用户{%s}切换账户", share.Profile.UserId))
+}
+func funcProfileSelfCheck(share *public.StructShareBase, _ ...any)     {}
+func funcProfileSelfModify(share *public.StructShareBase, _ ...any)    {}
+func funcProfileOtherCheck(share *public.StructShareBase, _ ...any)    {}
+func funcProfileOtherEdit(share *public.StructShareBase, _ ...any)     {}
+func funcSubjectAdd(share *public.StructShareBase, _ ...any)           {}
+func funcSubjectDel(share *public.StructShareBase, _ ...any)           {}
+func funcSubjectCheck(share *public.StructShareBase, _ ...any)         {}
+func funcSubjectEdit(share *public.StructShareBase, _ ...any)          {}
+func funcClassAdd(share *public.StructShareBase, _ ...any)             {}
+func funcClassDel(share *public.StructShareBase, _ ...any)             {}
+func funcClassCheck(share *public.StructShareBase, _ ...any)           {}
+func funcClassEdit(share *public.StructShareBase, _ ...any)            {}
+func funcClassMemberAdd(share *public.StructShareBase, _ ...any)       {}
+func funcClassMemberDel(share *public.StructShareBase, _ ...any)       {}
+func funcExamAdd(share *public.StructShareBase, _ ...any)              {}
+func funcExamDel(share *public.StructShareBase, _ ...any)              {}
+func funcExamCheck(share *public.StructShareBase, _ ...any)            {}
+func funcExamEdit(share *public.StructShareBase, _ ...any)             {}
+func funcReportAdd(share *public.StructShareBase, _ ...any)            {}
+func funcReportEdit(share *public.StructShareBase, _ ...any)           {}
+func funcReportCheckDate(share *public.StructShareBase, _ ...any)      {}
+func funcReportCheckId(share *public.StructShareBase, _ ...any)        {}
+func funcMailboxSend(share *public.StructShareBase, _ ...any)          {}
+func funcMailboxReceive(share *public.StructShareBase, _ ...any)       {}
+func funcToolboxAddActiveCode(share *public.StructShareBase, _ ...any) {}
+func funcToolboxDelAccount(share *public.StructShareBase, _ ...any)    {}

@@ -19,6 +19,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 	"unsafe"
 )
@@ -101,9 +102,13 @@ func Tip(str string) {
 	fmt.Print(str)
 }
 
-func TipWait(str string) {
+func TipWait(str string, timeSleep ...int) {
 	fmt.Print(str)
-	for i := 0; i < 3; i++ {
+	timer := 3
+	if len(timeSleep) != 0 && 0 < timeSleep[0] {
+		timer = timeSleep[0]
+	}
+	for i := 0; i < timer; i++ {
 		fmt.Print(".")
 		time.Sleep(1 * time.Second)
 	}
@@ -135,11 +140,11 @@ func SelectOption(rangeMax int) int {
 	Tip("请选择菜单选项：")
 	_, err := fmt.Scanln(&option)
 	if err != nil {
-		Tip(fmt.Sprintf(TipOpFail, "输入内容非法！请重新输入："))
+		Tip(Format(TipOpFail, "输入内容非法！请重新输入："))
 		return -1
 	}
 	if rangeMax < option || option < 0 {
-		Tip(fmt.Sprintf(TipOpFail, "请选择范围内的选项："))
+		Tip(Format(TipOpFail, "请选择范围内的选项："))
 		return -1
 	}
 	return option
@@ -152,7 +157,7 @@ func TipInput(tip string, verifier ...func(string) (bool, string)) (string, erro
 		fmt.Println(tip)
 		_, err := fmt.Scanln(&input)
 		if err != nil {
-			TipWait(fmt.Sprintf(TipOpFail, "输入内容非法！请重新输入！"))
+			TipWait(Format(TipOpFail, "输入内容非法！请重新输入！"))
 			return "", err
 		}
 		if len(verifier) == 0 || verifier[0] == nil {
@@ -166,4 +171,38 @@ func TipInput(tip string, verifier ...func(string) (bool, string)) (string, erro
 		TipWait(tips)
 	}
 	return input, nil
+}
+
+func Format(format string, strList ...string) string {
+	var builder strings.Builder
+	countLengthStrList := 0
+	lenList := len(strList)
+	for _, str := range strList {
+		countLengthStrList += len(str)
+	}
+	// 计算容量并预分配
+	builder.Grow(countLengthStrList + len(format) - lenList*2)
+	count := 0
+	start := 0
+	lastByte := int32(format[0])
+	for i, bt := range format {
+		if i == 0 {
+			continue
+		}
+		if count == lenList {
+			builder.WriteString(format[i:])
+			break
+		}
+		if lastByte == '%' && bt == 's' {
+			for j := start; j < i-1; j++ {
+				builder.WriteByte(format[j])
+			}
+			//builder.WriteString(format[start : i-1])
+			builder.WriteString(strList[count])
+			count++
+			start = i + 1
+		}
+		lastByte = bt
+	}
+	return builder.String()
 }

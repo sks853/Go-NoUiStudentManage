@@ -25,18 +25,18 @@ func main() {
 
 func initMain() {
 	go ServerRun()
-	time.Sleep(1 * time.Second)
+	time.Sleep(2 * time.Second)
 	public.InitUdpClient()
 	public.FuncChangeModeDebug(false)
 	public.FuncPrintLog(public.LogInfo, "程序开始运行...")
 }
 
 func startMain() {
-	profile := public.StructProfile{IsLogin: false}
+	profile := public.StructProfile{IsLogin: false, Permit: public.PermitGuest}
 	share := public.StructShareBase{Profile: &profile}
 	menu := InitTreeMenu(&share)
 	nodeList := &public.StructMenuLink{Node: menu}
-	FuncPrintMenu(*menu, &share)
+	FuncMenuPrint(menu, &share)
 	for {
 		option := public.SelectOption(len(menu.MenuNode))
 		if option < 0 {
@@ -63,7 +63,7 @@ func startMain() {
 			// 对当前菜单指向用户所选菜单选项，并将指向后的菜单属性赋予`nodeList`链点的菜单属性`Node`
 			menu = menu.MenuNode[option-1]
 			nodeList.Node = menu
-			// 执行当前菜单附带的操作函数，若需要验证则传入验证操作量，通过后允许进入菜单，否则返回上一级菜单
+			// 执行当前菜单附带的操作函数，若需要验证则传入验证操作量，通过后允许进入菜单，否则返回上一级菜单，或者保持当前菜单
 			if menu.Func != nil {
 				if menu.HasVerifier {
 					vfResult := false
@@ -72,11 +72,15 @@ func startMain() {
 						nodeList = nodeList.NodeLast
 						menu = nodeList.Node
 					}
+				} else if menu.IsKeepMenu {
+					menu.Func(&share)
+					nodeList = nodeList.NodeLast
+					menu = nodeList.Node
 				} else {
 					menu.Func(&share)
 				}
 			}
 		}
-		FuncPrintMenu(*menu, &share)
+		FuncMenuPrint(menu, &share)
 	}
 }

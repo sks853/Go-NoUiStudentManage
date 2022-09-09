@@ -18,7 +18,8 @@ type StructProfile struct {
 	Name      string
 	UserId    string
 	ClassId   string
-	SubjectID string
+	SubjectId string
+	Permit    int
 }
 
 type StructMenu struct {
@@ -28,6 +29,7 @@ type StructMenu struct {
 	PermitList  []int
 	Text        string
 	HasVerifier bool
+	IsKeepMenu  bool
 	MenuNode    []*StructMenu
 	Func        func(*StructShareBase, ...any)
 }

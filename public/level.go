@@ -27,9 +27,9 @@ const (
 )
 
 const (
-	PermitEqual        = 0
-	PermitEqualLess    = 1
-	PermitEqualGreater = 2
-	PermitLess         = 3
-	PermitGreater      = 4
+	PermitModeEqual        = 0
+	PermitModeEqualLess    = 1
+	PermitModeEqualGreater = 2
+	PermitModeLess         = 3
+	PermitModeGreater      = 4
 )
