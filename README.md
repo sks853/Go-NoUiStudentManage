@@ -1,2 +1,89 @@
 # Go-NoUiStudentManage
-A student manage system of developing by language Go and it's no Ui in CLI. Using MPL-2.0.
+
+A student manage system of developing by language Go and it's no Ui in CLI. Using MPL-2.0 protocol.
+
+Project in Github named [Go-NoUiStudentManage](https://github.com/sks853/Go-NoUiStudentManage).
+
+## 一、说明
+
+1. 横向列表默认以英文逗号分隔列，除了使用`|`强调描述外，表中没有一项是多余的；
+2. 凡是出现括号内含文字的，均为与其最相邻的变量的解释；
+3. 部分中文解释内嵌于变量中，如`用户密码哈希值`；
+4. 未规范的变量不做要求，如`随机字符串`但并未指明串的长度。
+
+## 二、变量释义
+
+
+| 变量名        | 释义     |
+|------------|--------|
+| UserId     | 用户编号   |
+| Name       | 用户姓名   |
+| Permit     | 用户权限   |
+| ClassId    | 行政班级编号 |
+| ActiveCode | 注册激活码  |
+
+## 三、用户文件
+
+### 3.1 用户数据文件`xxx.user`
+
+命名格式：`userId` + `.user`  
+命名举例：2018070230421.csv  
+内容格式：  
+
+| 第一列        |
+|------------|
+| -          |
+| UserId     |
+| -          |
+| Name       |
+| -          |
+| Permit     |
+| -          |
+| ClassId    |
+| -          |
+| ActiveCode |
+| -          |
+
+
+内容举例：  
+
+```
+-
+2018070230421
+-
+张翼德
+-
+1
+-
+20220123
+-
+EJ45BF97
+-
+```
+
+
+### 3.2 用户密码文件`xxx`
+
+命名格式：`用户密码哈希值`  
+命名举例：961c62457d5bb54b73bd8c68736d30e631f0555248cd327903d582d9a37b722b  
+内容格式：无  
+内容举例：无
+
+### 3.3 用户邮件文件`xxx.mail`
+
+命名格式：(已读)`R` / (未读)`C` + `_` + `发件日期戳` + `_` + `随机字符串` + `.mail`  
+命名举例：R_2022-09-10_rX1b3F  
+内容格式：  
+
+| 第一列     | 第二列     | 第三列  |
+|---------|---------|------|
+| 发件人用户编号 | 发件日期时间戳 | 邮件主题 |
+| 邮件内容主体  | ...     | ...  |
+
+
+内容举例：  
+
+```
+2018070230421,2022-09-10 11:42:01,欢迎使用邮件系统
+这是一条很长很长的内容...
+```
