@@ -13,31 +13,50 @@
 
 package database
 
-import "NoUiStudentManage/public"
+import (
+	"NoUiStudentManage/public"
+	"bufio"
+	"os"
+)
 
-func FuncDataLogin(userId string, password string, profile *public.StructProfile) (bool, error) {
-	// TODO 验证登陆情况
-	if userId == "root" && password == "root" {
-		profile.IsLogin = true
-		profile.Name = "超级管理员"
-		profile.UserId = "root"
-		profile.Permit = public.PermitAdministrator
-		return true, nil
-	} else if userId == "admin" && password == "admin" {
-		profile.IsLogin = true
-		profile.Name = "最靓的崽"
-		profile.UserId = "admin"
-		profile.ClassId = "202201234"
-		profile.SubjectId = "LyGPC"
-		profile.Permit = public.PermitManager
-		return true, nil
-	} else if userId == "user" && password == "user" {
-		profile.IsLogin = true
-		profile.Name = "张翼德"
-		profile.UserId = "2022070230421"
-		profile.ClassId = "202201234"
-		profile.Permit = public.PermitUser
-		return true, nil
+func FsReadLine(fs *os.File) *[]string {
+	var strList []string
+	fr := bufio.NewReader(fs)
+	for {
+		txt, err := fr.ReadString('\n')
+		if err != nil {
+			break
+		}
+		strList = append(strList, txt)
 	}
-	return false, nil
+	return &strList
+}
+
+func FsFormatLine() {
+
+}
+
+func FsReadUserProfile(pathProfile string, profile *public.StructProfile) error {
+	fs, err := os.OpenFile("", os.O_RDONLY, 0755)
+	if err != nil {
+		return err
+	}
+	defer func(fs *os.File) {
+		err = fs.Close()
+		if err != nil {
+		}
+	}(fs)
+
+	strList := FsReadLine(fs)
+	for _, txt := range *strList {
+		if txt == "-" {
+			// TODO 过滤用户用户信息
+		}
+	}
+
+	err = fs.Close()
+	if err != nil {
+		return err
+	}
+	return nil
 }

@@ -24,7 +24,7 @@ import (
 	"unsafe"
 )
 
-var openDebug = true
+var openDebug = false
 var socket net.PacketConn
 var socketDst *net.UDPAddr
 
@@ -65,10 +65,17 @@ func FuncPrintLog(level byte, info string, args ...error) {
 		}
 		time.Sleep(3 * time.Second)
 	}
-
+	if socket == nil || socketDst == nil {
+		fmt.Printf("\n[ERROR] 发送数据时建立链接失败，套接字对象为空，数据内容：%s\n", info)
+		time.Sleep(10 * time.Second)
+		return
+	}
 	switch level {
 	case LogErrs:
 		data := "[ERROR] " + info
+		if 0 != len(args) {
+			data = data + args[0].Error()
+		}
 		_, err := socket.WriteTo(FuncStringToByteSlice(data), socketDst)
 		if err != nil {
 			fmt.Printf("\n发送数据失败，原始错误信息：%s，日志无法被记录，err:%v\n", stringErr, err)
@@ -96,6 +103,7 @@ func FuncPrintLog(level byte, info string, args ...error) {
 		break
 	default:
 	}
+
 }
 
 func Tip(str string) {
@@ -205,4 +213,32 @@ func Format(format string, strList ...string) string {
 		lastByte = bt
 	}
 	return builder.String()
+}
+
+func FuncMkDir(path string, dirName string) error {
+	builder := strings.Builder{}
+	builder.Grow(len(path) + len(dirName)*2)
+	builder.WriteString(path)
+	for _, bt := range dirName {
+		builder.WriteByte('/')
+		builder.WriteString(string(bt))
+	}
+	err := os.MkdirAll(builder.String(), 0755)
+	if err != nil {
+		FuncPrintLog(LogErrs, Format("创建文件夹{%s}时出现异常", builder.String()), err)
+		return err
+	}
+	return nil
+}
+
+func FuncIsExistFile(pathDir string) (bool, error) {
+	_, err := os.Stat(pathDir)
+	if err != nil {
+		fmt.Print(err)
+		return false, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }

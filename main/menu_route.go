@@ -14,7 +14,6 @@
 package main
 
 import (
-	"NoUiStudentManage/database"
 	"NoUiStudentManage/public"
 )
 
@@ -56,7 +55,7 @@ func funcLogin(share *public.StructShareBase, option ...any) {
 			public.FuncPrintLog(public.LogErrs, "登陆时输入密码出现异常", err)
 			continue
 		}
-		ok, err := database.FuncDataLogin(userId, password, share.Profile)
+		ok, err := funcDataLogin(userId, password, share.Profile)
 		if err != nil {
 			public.FuncPrintLog(public.LogErrs, "登陆时校验账户出现异常", err)
 			continue

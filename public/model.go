@@ -6,7 +6,7 @@
  * @QQ           1695692119
  * @Version      0.0.1
  * @Time         2022-09-06 12:51
- * @FileName     struct_.go
+ * @FileName     model.go
  * @Description  None
  * ==================================================
 **/
