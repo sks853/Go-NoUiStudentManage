@@ -11,7 +11,7 @@
  * ==================================================
 **/
 
-package test
+package main
 
 import (
 	"NoUiStudentManage/public"

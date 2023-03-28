@@ -13,9 +13,25 @@
 
 package public
 
-import "runtime"
+import (
+	"runtime"
+)
 
 const SysType = runtime.GOOS
+
+const (
+	ProfileDataUid        = 1
+	ProfileDataUserId     = 2
+	ProfileDataPermit     = 3
+	ProfileDataName       = 4
+	ProfileDataClassId    = 5
+	ProfileDataActiveCode = 6
+)
+
+const (
+	PasswordDataUid    = 1
+	PasswordDataPasswd = 2
+)
 
 const (
 	Menu00Login         = "登陆账户"
@@ -92,4 +108,27 @@ const (
 	TipInputExamAdministrator = "请输入考试管理员用户编号："
 	TipSelectExamColony       = "请选择考试群体：\n"
 	TipSelectPermission       = "请选择用户权限：\n"
+)
+
+const (
+	errMsgTypeBase                = "由于`%s`，而无法进行`%s`，辅助信息：`%s`，异常：`%s`"
+	errMsgTypeSorSelectColumn     = "排序选取的关键列越界"
+	errMsgTypeOffsetGetData       = "无法偏移指针获取数据"
+	errMsgTypeOffsetHead          = "文件指针无法偏移到首位"
+	errMsgTypeFileNull            = "提供的文件指针为空"
+	errMsgTypeCalcLength          = "计算长度过程中出错"
+	errMsgTypeArgsLengthDifferent = "传入参数与待比较参数长度不等"
+	errMsgTypeCovertInt           = "无法将`%s`转换为数字型"
+	errMsgTypeConfigError         = "配置文件参数不足"
+	errMsgTypeOpenConfig          = "无法打开目标配置文件"
+	errMsgTypeOpenData            = "无法打开目标数据文件"
+	errMsgTypeArgsNull            = "传入的参数为空指针"
+	errMsgTypeStringEmpty         = "字符串内容为空"
+	errMsgTypeListEmpty           = "数组列表为空"
+	errMsgTypeListBound           = "提供的参数在数组范围外，已越界"
+	errMsgTypeMisMatchLength      = "内容长度不匹配"
+	errMsgTypeWriteData           = "无法写入文件"
+	errMsgTypeViewError           = "参考异常内容"
+	errMsgInvalidArgs             = "提供了非法的参数"
+	errMsgTypeReadData            = "文件数据读取失败"
 )

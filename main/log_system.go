@@ -25,7 +25,7 @@ var mutex sync.Mutex
 var log *os.File
 
 func ServerRun() {
-	log = getLogFile("./log")
+	log = getLogFile(public.PathDirLog)
 	server, err := net.ResolveUDPAddr("udp4", "127.0.0.1:32111")
 	if err != nil {
 		public.TipWait("开启日志系统时出现错误，即将关闭系统")

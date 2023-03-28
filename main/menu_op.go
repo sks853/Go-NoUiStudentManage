@@ -123,7 +123,6 @@ func funcDataLogin(userId string, password string, profile *public.StructProfile
 		profile.Name = "最靓的崽"
 		profile.UserId = "admin"
 		profile.ClassId = "202201234"
-		profile.SubjectId = "LyGPC"
 		profile.Permit = public.PermitManager
 		return true, nil
 	} else if userId == "user" && password == "user" {
